@@ -23,8 +23,11 @@ async function evalPosition(){
     var url = new URL("https://lichess.org/api/cloud-eval"),
     params = {fen: "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 1"}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-    aresult = fetch(url)
-        .then(response => console.log(response.json()));
-    document.getElementById("lol").innerHTML = aresult;
+    const aresult = await fetch(url);
+    const adata = await aresult.json();
+
+
+    
+        document.getElementById("lol").innerHTML = adata.pvs[0].cp;
 }
 evalPosition();
